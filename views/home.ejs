@@ -1,0 +1,17 @@
+<%- include('partials/header'); -%>
+<h1>Home</h1>
+<p>
+    <%= content %>
+</p>
+<% posts.forEach(post => { %>
+    <div class="d-flex mt-2"> 
+        <h1><%= post.title %></h1>
+        <button type="button" class="btn btn-outline-primary mr-2 ml-auto" onchange="/posts/edit">Edit</button>
+        <button type="button" class="btn btn-outline-danger">Delete</button>
+    </div>
+
+    <p><%-post.description.substring(0,200) + '...' %> </p> <a href="/posts/<%= post._id %>">Read More</a>
+    
+    <% }) 
+    %>
+<%- include('partials/footer'); -%>
