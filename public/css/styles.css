@@ -37,3 +37,64 @@
 
     max-width: 100px;
 }
+.register-login-btn{
+   background-color: #f8f8f8;
+   color:black;
+   font-size:1em;
+   border:1px solid #ccc;
+}
+ h2 {
+    font-size: 1.2em;
+    color: #07ad90;
+  }
+ .field-wrapper {
+    margin-top: 30px;
+    position: relative;
+  }
+   .field-wrapper label {
+    color: #999999;
+  }
+ .field-wrapper input[type=text],  .field-wrapper input[type=password],  .field-wrapper input[type=submit], .field-wrapper textarea {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+ .field-wrapper input[type=text]:focus,  .field-wrapper input[type=password]:focus, .field-wrapper input[type=submit]:focus,  .field-wrapper textarea:focus {
+    outline: none;
+  }
+  .field-wrapper input[type=text],   .field-wrapper input[type=password],   .field-wrapper textarea {
+    width: 100%;
+    border: none;
+    background: transparent;
+    line-height: 2em;
+    border-bottom: 1px solid #07ad90;
+    color: #666;
+  }
+  .field-wrapper input[type=submit]{
+  display: block;
+  padding:0.5em;
+  width: 100%;
+  background: linear-gradient(to right, #35c3c1, #00d6b7);
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .field-wrapper input[type=submit]:focus{
+   outline: none;
+   border: none;
+  }
+  small {
+    font-size: 0.7em;
+  }
+  @-webkit-keyframes success {
+    from {
+      -webkit-transform: translate(-50%, -50%) rotate(0) scale(0);
+    }
+    to {
+      -webkit-transform: translate(-50%, -50%) rotate(-45deg) scale(1);
+    }
+  }
+

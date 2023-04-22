@@ -1,0 +1,17 @@
+<%- include('partials/header'); -%>
+<h1>Sign up</h1>
+<form action="/register" method="post" style="width:40%;">
+  <div class="field-wrapper">
+    <label>Username</label>
+    <input type="text" name="username">
+  </div>
+  <div class="field-wrapper">
+    <label>Password</label>
+    <input type="password" name="password" autocomplete="new-password">
+  </div>
+  <div class="field-wrapper">
+    <input type="submit" value='REGISTER'>
+  </div>
+</form>
+</div>
+<%- include('partials/footer'); -%>

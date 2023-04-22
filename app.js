@@ -7,11 +7,21 @@ const lodash = require("lodash");
 const  mongoose = require('mongoose')
 
 const app = express();
+const passport = require('passport');
+const passportLocalMongoose = require('passport-local-mongoose');
+const session = require('express-session');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static("public"));
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+}));
+app.use(passport.authenticate('session'));
 
 //Set `strictQuery: false` to globally opt into filtering by properties that aren't in the schema
 // Included because it removes preparatory warnings for Mongoose 7.
@@ -36,13 +46,28 @@ const postSchema = new mongoose.Schema({
 });
 const post = mongoose.model('post', postSchema);
 
+const userSchema = new mongoose.Schema({
+    email:String,
+    password:String
+});
+
+userSchema.plugin(passportLocalMongoose);
+
+const User = mongoose.model('user', userSchema);
+
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 
 app.get("/", function(req, res){
   post.find().then(function(foundedPosts){
-    res.render('home', {content: '',posts:foundedPosts});
+    res.render('home', {posts:foundedPosts, user:req.user},);
 
   }).catch(function(err){
-    res.render('home', {content: '',posts: [defaultPost]});
+    res.redirect('/');
   });
 });
     
@@ -111,6 +136,37 @@ app.route("/posts/:postId")
   });
 })
 
+app.get('/register', function(req, res){
+  res.render('signup');
+});
+
+app.get('/login', function(req, res){
+  res.render('login', {user:req.user});
+});
+
+app.post('/register', function(req, res){
+   console.log(req.body.username);
+   User.register(new User({username: req.body.username}), req.body.password).then( function(){
+    passport.authenticate('local')(req, res, function () {
+      res.redirect('/');
+    });
+  }).catch(function(err){
+     console.log(err);
+     res.render('signup');
+  });
+});
+
+app.post('/login', passport.authenticate('local'), function(req, res){
+  res.redirect('/');
+});
+
+app.get('/logout',function(req, res){
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
+ 
+});
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");

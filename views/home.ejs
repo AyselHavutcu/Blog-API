@@ -1,9 +1,8 @@
 <%- include('partials/header'); -%>
-<h1>Home</h1>
-<p>
-    <%= content %>
-</p>
-<% posts.forEach(post => { %>
+<h1> Welcome to My Daily Journel!</h1>
+<br>
+<% if (user){ %>
+   <% posts.forEach(post => { %>
     <div class="d-flex mt-2"> 
         <h1><%= post.title %></h1>
         <button type="button" class="btn btn-outline-primary mr-2 ml-auto" onchange="/posts/edit">Edit</button>
@@ -12,6 +11,12 @@
 
     <p><%-post.description.substring(0,200) + '...' %> </p> <a href="/posts/<%= post._id %>">Read More</a>
     
-    <% }) 
-    %>
+    <% })  %>
+ 
+    <% }
+    else { %>
+        <a class="btn register-login-btn" href="/register">Register</a>
+        <a class="btn register-login-btn" href="/login">Login</a>
+        <% } %>
+ 
 <%- include('partials/footer'); -%>
